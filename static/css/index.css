@@ -1,13 +1,14 @@
-.slideout-menu {
+.panel {
 	position: fixed;
 	top: 0;
-	left: -250px;
-	width: 250px;
+	left: 0;
+	width: 500px;
 	height: 100%;
 	background: #333;
-	z-index: 100;
+	box-shadow: 0px 0px 10px;
 }
-.slideout-menu h3 {
+
+h3 {
 	position: relative;
 	padding: 12px 10px;
 	color: #fff;
@@ -15,7 +16,8 @@
 	font-weight: 400;
 	border-bottom: 4px solid #222;
 }
-.slideout-menu .slideout-menu-toggle {
+
+.exitMenuButton {
 	position: absolute;
 	top: 12px;
 	right: 10px;
@@ -29,31 +31,37 @@
 	text-decoration: none;
 	vertical-align: top;
 }
-.slideout-menu .slideout-menu-toggle:hover {
+
+.exitMenuButton:hover {
 	color: #fff;
 }
-.slideout-menu ul {
+
+.panel ul {
 	list-style: none;
 	font-weight: 300;
 	border-top: 1px solid #151515;
 	border-bottom: 1px solid #454545;
 }
-.slideout-menu ul li {
+
+.panel ul li {
 	border-top: 1px solid #454545;
 	border-bottom: 1px solid #151515;
 }
-.slideout-menu ul li a {
+
+.panel ul li a {
 	position: relative;
 	display: block;
 	padding: 10px;
 	color: #999;
 	text-decoration: none;
 }
-.slideout-menu ul li a:hover {
+
+.panel ul li a:hover {
 	background: #000;
 	color: #fff;
 }
-.slideout-menu ul li a i {
+
+.panel ul li a i {
 	position: absolute;
 	top: 15px;
 	right: 10px;
