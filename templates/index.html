@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+	<link rel="stylesheet" type="text/css" href="/index.css"></link>
+</head>
+<body>
+	<div class="slideout-menu">
+		<h3>Menu <a href="#" class="slideout-menu-toggle">×</a></h3>
+		<ul>
+			<li><a href="#">Home <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="#">Tour Information <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="#">Tour Pricing <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="#">Photo Gallery <i class="fa fa-angle-right"></i></a></li>
+			<li><a href="#">News & Events <i class="fa fa-angle-right"></i></a></li>
+		</ul>
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+		    $('.slideout-menu-toggle').on('click', function(event){
+		    	event.preventDefault();
+		    	// create menu variables
+		    	var slideoutMenu = $('.slideout-menu');
+		    	var slideoutMenuWidth = $('.slideout-menu').width();
+
+		    	// toggle open class
+		    	slideoutMenu.toggleClass("open");
+
+		    	// slide menu
+		    	if (slideoutMenu.hasClass("open")) {
+			    	slideoutMenu.animate({
+				    	left: "0px"
+			    	});
+		    	} else {
+			    	slideoutMenu.animate({
+				    	left: -slideoutMenuWidth
+			    	}, 250);
+		    	}
+		    });
+		});
+    </script>
+
+</body>
+</html>
