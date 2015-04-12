@@ -8,6 +8,8 @@
 	box-shadow: 0px 0px 10px;
 }
 
+
+
 h3 {
 	position: relative;
 	padding: 12px 10px;
@@ -36,14 +38,18 @@ h3 {
 	font-family: Myriad Pro;
 }
 
-/*.panel ul li a:hover {
-	background: #999999;
-	color: #fff;
-}*/
-
 .panel ul li a i {
 	position: absolute;
 	top: 15px;
 	right: 10px;
 	opacity: .5;
+}
+
+#panelTwo {
+	display: none;
+}
+
+#panelThree {
+	display: none;
+	left: 200px;
 }
