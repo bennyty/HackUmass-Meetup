@@ -28,7 +28,7 @@ div { text-align: center; }
   display: inline-block;
   width: 200px;
   height: 200px;
-  background-image: url(../../meetupLogo.png);
+  background-image: url("../imgs/meetupLogo.png");
   border-radius: .2em;
   margin-bottom: 8px;
 }
