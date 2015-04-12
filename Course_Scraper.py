@@ -9,10 +9,12 @@ from HTMLParser import HTMLParser
 from pprint import pprint
 import xml
 import sys
+import itertools
 
 
 BASE_URL = "https://cesd3.oit.umass.edu/undergradguide/2014-2015/"
 MAIN_PAGE = "Chapter2298.html"
+ABBR_PAGE = "http://www.umass.edu/ug_programguide/academicinfo/abbreviationsforcourses.html"
 major_map = {}
 abrreviation_map = {}
 requests.packages.urllib3.disable_warnings()
@@ -33,8 +35,11 @@ class Course_Scraper():
        	major_map.pop('',None)
 
        	#populates major_map with hashmap of courses
-       	for course,link in major_map.items():
-       		major_map[course] = self.getCourses(course,link)
+       	#populates abrreviation_map with hashmap of abbreviations
+       	abrreviation_map = self.getAbbreviation()
+       	print abrreviation_map
+       	for major,link in major_map.items():
+       		major_map[major] = self.getCourses(major,link)
 
     def getCourses(self,course,link):
     	"""Gets courses assosciated with given major"""
@@ -53,19 +58,25 @@ class Course_Scraper():
     	soup = BeautifulSoup(page.content)
     	#printContent = soup.findAll('div', {"class" : "printcontent"})
     	regex = re.compile(r'<p><strong>(\w+)')
-    	uniquedict = {}
-    	normaldict = {}
+    	uniqueTup = []
+    	normalTup = []
+    	courseList = []
     	for link in soup.find_all("p"):
     		#print str(link) + "\n"
     		if '<br/><br/>' in str(link):
     			#print link
     			tup = self.uniqueCases(link)
     			if tup:
-    				uniquedict = tup
+    				uniqueTup = tup
     		elif re.match(regex,str(link)):
     			tup = normalCase = self.normalCase(link)
     			if tup:
-    				uniquedict = tup
+    				normalTup = tup
+    		courseTuple = uniqueTup + normalTup
+    		#if courseTuple
+    		courseList.append(courseTuple)
+    	return courseList
+    		#return courseTuple
     			#course = str(link)[11:].strip('</strong>').strip('<strong>').strip('<br/>').strip('cr').strip('</p')
     			#course = ''.join(xml.etree.ElementTree.fromstring(str(link)).itertext()).encode('utf-8')
     			#courseNumber = re.search(r'([^\s]+)',course)
@@ -123,9 +134,25 @@ class Course_Scraper():
     	if courseName:
     		if courseName.group(0):
     			courseName = courseName.group(0).strip('OIM').strip('- ').strip()
-    	print courseName
-    	print courseNumber
+    			courseName = filter(lambda x: x in string.printable, courseName)
+    	#print courseName
+    	#print courseNumber
+    	if courseName and courseNumber:
+    		return zip(courseNumber,[courseName])
     	#print course
+
+    def getAbbreviation(self):
+       	page = requests.get(ABBR_PAGE,verify=False)
+        soup = BeautifulSoup(page.content)
+
+        #populates major map with all links assosciated with each major
+        abbrev_map = {}
+        for link in soup.find_all("p"):
+    		link = ''.join(xml.etree.ElementTree.fromstring(str(link)).itertext()).encode('utf-8')
+    		abbrevPair = link.split()
+    		abbrev_map = dict(itertools.izip_longest(*[iter(abbrevPair)] * 2, fillvalue=""))
+    		return abbrev_map
+    
 
     		
 
