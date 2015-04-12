@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Login | HackMeet</title>
+  
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" type="text/css" href="../static/css/normalize.css">
+  
+  <script src="../static/js/sweet-alert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/css/sweet-alert.css">
+  
+  <link rel="stylesheet" type="text/css" href="../static/css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/login.css">
+  <script type="text/javascript" src="../static/js/login.js"></script>
+  
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="images/favicon.png" rel="icon" type="image/png" >
+</head>
+<body>
+  <div id="content-wrapper">
+    <div id="login-container" class="mui-card-shadow">
+      <div id="splash-graphic">
+      </div>
+      <div id="login-form">
+        <form onsubmit="return validateForm()" action="main.html" name="login" method="post">
+          <input type="email" name="email" placeholder="Email Address" required><br>
+          <input type="password" name="pwd" placeholder="Password"><br>
+          <a href="#"><span id="signup">Sign Up</span></a> <span id="or">or</span>
+          <input type="submit" value="Login" class="">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
