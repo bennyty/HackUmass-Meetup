@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Dashboard</title>
+    <title>Page Title</title>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="../static/css/main.css"></link>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -12,23 +12,47 @@
 </head>
 <body>
     <div class="panel open" id="panelOne">
-        <h3><label form="autocomplete">Enter your class:</label> <input id="autocomplete"></h3>
+        <h3><label for:"autocomplete>Find your classes:</label> <input id="autocomplete"></h3>
         <ul>
-            <li><a href="#" class="item1-1">CMPSCI 121</a></li>
-            <li><a href="#" class="item1-2">CMPSCI 187</a></li>
-            <li><a href="#" class="item1-3">MATH 233</a></li>
-            <li><a href="#" class="item1-4">PHYSICS 151</a></li>
+            <li>
+                <a href="#" class="item1-1">
+                    <div class="title">CMPSCI 121</div>
+                    <div>Introduction to Computer Science</div>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="item1-2">
+                    <div>CMPSCI 187</div>
+                    <div>Data Structures</div>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="item1-3">
+                    <div>MATH 233</div>
+                    <div>Multivariable Calculus</div>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="item1-4">
+                    <div>PHYSICS 151</div>
+                    <div>General Physics I</div>
+                </a>
+            </li>
         </ul>
     </div>
+    
     <div class="panel closed" id="panelTwo">
         <h3>Menu</h3>
         <ul>
-            <li><a href="#" class="item2-1">CMPSCI 121</a></li>
+            <li>
+                <a href="#" class="item2-1">CMPSCI 121</a>
+            </li>
             <li><a href="#" class="item2-2">CMPSCI 187</a></li>
             <li><a href="#" class="item2-3">MATH 233</a></li>
             <li><a href="#" class="item2-4">PHYSICS 151</a></li>
         </ul>
     </div>
+    
     <div class="panel closed" id="panelThree">
         <h3>Menu</h3>
         <ul>
@@ -37,6 +61,12 @@
             <li><a href="#" class="item3-3">MATH 233</a></li>
             <li><a href="#" class="item3-4">PHYSICS 151</a></li>
         </ul>
+    </div>
+    
+    <div id="headerBar">
+        <div id="pageTitle">hackMeet.me</div>
+        <a id="signIn">Sign Up</a>
+        <a id="logIn">Log In</a>
     </div>
 </body>
 </html>
