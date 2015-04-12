@@ -5,7 +5,7 @@ $(document).ready(function() {
     var panelThree = $('#panelThree');
 
     var classList = [];
-    $.getJSON('https://gist.githubusercontent.com/dgandle/153e42bae5ea06d82ef1/raw/71c503fcd3cdbea4cb2b720f8110978008bc28d2/document.json', function(data) {
+    $.getJSON('https://raw.githubusercontent.com/bennyty/HackUmass-Meetup/master/rpi.json', function(data) {
 	for (var i in data.classes) {
 	    classList[i] = data.classes[i].department + " " + data.classes[i].number + ": " + data.classes[i].name;
 	}
@@ -23,7 +23,7 @@ $(document).ready(function() {
 	    
 	    
 	    
-	    $.getJSON('https://gist.githubusercontent.com/dgandle/153e42bae5ea06d82ef1/raw/71c503fcd3cdbea4cb2b720f8110978008bc28d2/document.json', function(data) {
+	    $.getJSON('https://raw.githubusercontent.com/bennyty/HackUmass-Meetup/master/rpi.json', function(data) {
 		for (var i in data.classes) {
 		    if (data.classes[i].department == input[0] && data.classes[i].number == input[1]) {
 			//code
