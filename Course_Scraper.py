@@ -56,7 +56,7 @@ class Course_Scraper():
     	uniquedict = {}
     	normaldict = {}
     	for link in soup.find_all("p"):
-    		print str(link) + "\n"
+    		#print str(link) + "\n"
     		if '<br/><br/>' in str(link):
     			#print link
     			tup = self.uniqueCases(link)
@@ -91,14 +91,40 @@ class Course_Scraper():
     	course = ''.join(xml.etree.ElementTree.fromstring(str(link)).itertext()).encode('utf-8')
     	courseNumber = re.search(r'([^\s]+)',course)
     	if courseNumber:
-    		courseNumber = courseNumber.group(0).strip()
+    		courseNumber = [courseNumber.group(0).strip()]
+    		commaCase = re.search(r'\d*[,]\d*',courseNumber[0])
     		if not any(char.isdigit() for char in courseNumber):
     			return None
-    	courseName = re.search(r'^[^\(]+',course.strip(courseNumber).strip('OIM').strip('- '))
-    	if courseName:
-    		courseName = courseName.group(0).strip()
+    		elif commaCase:
+    			multipleCourseNumList = course.split(',')
+    			for number in multipleCourseNumList[:-1]:
+    				courseNumber.append(number.strip(','))
+    				#print courseNumber
+    			lastNumber = re.search(r'([^\s]+)',multipleCourseNumList[len(multipleCourseNumList)-1])
+    			if lastNumber.group(0):
+    				courseNumber.append(str((lastNumber).group(0)).strip())
+    				#print courseNumber
+
+    			#courseNumber.append(lastNumber)
+    			#print commaCase.group(1)
+    	courseStripped = None
+    	courseName = None
+    	#courseNumber = [courseNumber]
     	#print courseNumber
-    	#print courseName
+    	if courseNumber:
+    		#print courseNumber
+    		#print courseNumber
+    		for stripVal in courseNumber:
+    			#print stripVal
+    			courseStripped = course.strip(stripVal)
+    	#print courseStripped
+    	if courseStripped:
+    		courseName = re.search(r'^[^\(]+',courseStripped)
+    	if courseName:
+    		if courseName.group(0):
+    			courseName = courseName.group(0).strip('OIM').strip('- ').strip()
+    	print courseName
+    	print courseNumber
     	#print course
 
     		
