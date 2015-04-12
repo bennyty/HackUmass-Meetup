@@ -32,7 +32,7 @@ $(document).ready(function() {
 	//    });
 	    
 	    
-	    $('body div ul').append("<li>" + $('#autocomplete').val() + "</li>");
+	    //$('body div ul').append("<li>" + $('#autocomplete').val() + "</li>");
 	    
 	    
 	    
