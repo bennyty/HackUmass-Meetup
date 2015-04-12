@@ -1,0 +1,28 @@
+{
+  "CMPSCI": {
+    "FullName": "Computer Science",
+    "Catalog": [
+      {
+        "Number": 101,
+        "Name": "Introduction to Computer Science"
+      },
+      {
+        "Number": 201,
+        "Name": "Continuation of Computer Science"
+      }
+    ]
+  },
+  "ENGL": {
+    "FullName": "English",
+    "Catalog": [
+      {
+        "Number": 101,
+        "Name": "Introduction to English"
+      },
+      {
+        "Number":102,
+        "Name": "Continue English"
+      }
+    ]
+  }
+}
