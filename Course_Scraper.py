@@ -15,15 +15,19 @@ BASE_URL = "https://cesd3.oit.umass.edu/undergradguide/2014-2015/"
 MAIN_PAGE = "Chapter2298.html"
 ABBR_PAGE = "http://www.umass.edu/ug_programguide/academicinfo/abbreviationsforcourses.html"
 major_map = {}
-abrreviation_map = {}
+abbreviation_map = {}
 #ignores SSL warnings cause they're fucking annoying
 requests.packages.urllib3.disable_warnings()
+
 
 class Course_Scraper():
     def getMajors(self):
     	"""Gets majors from main page"""
        	page = requests.get(BASE_URL + MAIN_PAGE,verify=False)
         soup = BeautifulSoup(page.content)
+
+        abbreviationList = []
+        majorList = []
 
         #populates major map with all links assosciated with each major
         for link in soup.find_all("a"):
@@ -34,21 +38,35 @@ class Course_Scraper():
         major_map.pop('departmental honors',None)
        	major_map.pop('',None)
 
-       	json_data = open("document.json").read()
-       	data = json.loads(json_data)
-       	pprint(data)
-       	list = (data["CMPSCI"].keys())
-       	print type(list[0][1])
+       	#json_data = open("document.json").read()
+       	#data = json.loads(json_data)
+
+       	#list = (data["CMPSCI"].keys())
+       	#Sprint type(list[0][1])
        	#populates major_map with hashmap of courses
        	#populates abrreviation_map with hashmap of abbreviations
-       	abrreviation_map = self.getAbbreviation()
-       	#print abrreviation_map
+       	abbreviation_map = self.getAbbreviation()
        	for major,link in major_map.items():
-       		major_map[major] = self.getCourses(major,link)
+       		#if str(major) in abbreviation_map.keys():
+       			#abbreviationList.append(abbreviation_map[str(major)])
+       		if major in major_map.keys():
+       			if str(major) in abbreviation_map.keys():
+       				abbreviation = abbreviation_map[major]
+       			courseList = self.getCourses(major,link,abbreviation)
+       			if courseList:
+       				majorList.append(courseList)
+       	majorList = [x for x in majorList if x] 
+       	#pprint(majorList)
+       	#pprint(major_map)
+       	#pprint(abbreviationList)
+       	with open('UMass.json', 'w') as outfile:
+       		json.dump(majorList, outfile)
+       	outfile.close
+       	#json.write(majorList,indent=4, sort_keys=True)
        	#self.writeBlob()
 
 
-    def getCourses(self,course,link):
+    def getCourses(self,course,link,abbrev):
     	"""Gets courses assosciated with given major"""
     	#navigates to course page
     	course_map = {}
@@ -85,7 +103,9 @@ class Course_Scraper():
     				normalTup = tup
     		#puts same major tuples under 1 major
     		courseTuple = uniqueTup + normalTup
-    		courseList.append(courseTuple)
+    		if courseTuple:
+    			courseTuple[0] = courseTuple[0] + ("Department: " + abbrev,)
+    			courseList.append(courseTuple)
     	return courseList
 
     #runs normal case after splitting special case into seperate courses
@@ -126,22 +146,33 @@ class Course_Scraper():
     		if courseName.group(0):
     			#fix special cases
     			courseName = courseName.group(0).strip('OIM').strip('- ').strip()
-    			courseName = filter(lambda x: x in string.printable, courseName)
+    			courseName = "Course Name: " + filter(lambda x: x in string.printable, courseName)
     	#returns tuple of courseNumber and courseName
     	if courseName and courseNumber:
+    		courseNumber = ['Course Number: {0}'.format(i) for i in courseNumber]
     		return zip(courseNumber,[courseName])
 
     def getAbbreviation(self):
        	page = requests.get(ABBR_PAGE,verify=False)
         soup = BeautifulSoup(page.content)
         #creates dictionary of abbreviation
-        abbrev_map = {}
+        normal_map = {}
+        unique_map = {}
         for link in soup.find_all("p"):
-
     		link = ''.join(xml.etree.ElementTree.fromstring(str(link)).itertext()).encode('utf-8')
-    		abbrevPair = link.split()
-        	#puts abbreviations into tuple and returns it
-    		abbrev_map = dict(itertools.izip_longest(*[iter(abbrevPair)] * 2, fillvalue=""))
+    		prevLink = None
+    		for link in link.split("\n"):
+    			abbrevPair = link.split("\t",1)
+        		#puts abbreviations into tuple and returns it
+        		if len(abbrevPair) == 2:
+        			if(abbrevPair[1] == "Bachelor\xe2\x80\x99s Degree with "):
+        				abbrevPair[1] = abbrevPair[1].replace("\xe2\x80\x99","'")
+        			prevLink = abbrevPair[1]
+        			normal_map[abbrevPair[1]] = abbrevPair[0].strip()
+    			elif len(abbrevPair) == 1:
+    				abbrevPair[0] = abbrevPair[0].strip()
+    				unique_map[prevLink + abbrevPair[0]] = normal_map.pop(prevLink)
+    		abbrev_map = dict(normal_map,**unique_map)
     		return abbrev_map
     
     #def writeBlob(self):
