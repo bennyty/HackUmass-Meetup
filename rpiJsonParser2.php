@@ -14,19 +14,15 @@ foreach ($ids as $id) {
 
 
 $courses = $jCourses->result;
-$newJSON["classes"] = array();
-
+$newJSON = array();
 foreach ($courses as $course) {
-    $flag = 0;
-    foreach ($newJSON["classes"] as $course2) {
-        if ( $course->number ==  $course2->number ) {
-            $flag = 1;
-            break;
-        }
-    }
-    if ($flag == 1) break;
     $tempJ = array("department" => $idArray[$course->department_id], "number" => $course->number, "name" => $course->name);
-    array_push($newJSON["classes"], $tempJ);
+    array_push($newJSON, $tempJ);
+
+    if ($newJSON[$idArray[$course->department_id]]->FullName == $course->name) {
+        array_push($newJSON[$idArray[$course->department_id]]->Cataloge, array())
+    }
+    $newJSON[$idArray[$course->department_id]]
 }
 echo json_encode($newJSON);
 
