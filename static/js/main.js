@@ -5,7 +5,7 @@ $(document).ready(function() {
     var panelThree = $('#panelThree');
 
     var classList = [];
-    $.getJSON('https://raw.githubusercontent.com/bennyty/HackUmass-Meetup/master/rpi.json', function(data) {
+    $.getJSON('./static/json/rpi-untrimmed.json', function(data) {
 	for (var i in data.classes) {
 	    classList[i] = data.classes[i].department + " " + data.classes[i].number + ": " + data.classes[i].name;
 	}
@@ -23,7 +23,7 @@ $(document).ready(function() {
 	    
 	    
 	    
-	    $.getJSON('https://raw.githubusercontent.com/bennyty/HackUmass-Meetup/master/rpi.json', function(data) {
+	    $.getJSON('./static/json/rpi-untrimmed.json', function(data) {
 		for (var i in data.classes) {
 		    if (data.classes[i].department == input[0] && data.classes[i].number == input[1]) {
 			//code
@@ -32,7 +32,7 @@ $(document).ready(function() {
 	    });
 	    
 	    
-	    $('body div ul').append("<li>" + $('#autocomplete').val() + "</li>");
+	    //$('body div ul').append("<li>" + $('#autocomplete').val() + "</li>");
 	    
 	    
 	    

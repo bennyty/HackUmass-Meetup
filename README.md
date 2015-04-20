@@ -8,3 +8,5 @@ Contributors:
  * Cheyan Setayesh
  * Doug Gandle
  * Ben Espey
+
+Visit the site at www.hackmeet.me
