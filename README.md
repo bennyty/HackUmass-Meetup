@@ -10,3 +10,6 @@ Contributors:
  * Ben Espey
 
 Visit the site at www.hackmeet.me
+
+Security\ Module\ Tests/config/database.js must be edited with proper credentials before running Security\ Module\ Tests/Agora.js 
+Dev mongodb credentials in fb message
