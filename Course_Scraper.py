@@ -108,7 +108,7 @@ class Course_Scraper():
     			courseList.append(courseTuple)
     	return courseList
 
-    #runs normal case after splitting special case into seperate courses
+    #runs normal case after splitting special case into separate courses
     def uniqueCases(self,link):
     	for course in link.find_all('br'):
     		return self.normalCase(course)
@@ -181,5 +181,3 @@ class Course_Scraper():
 if __name__ == '__main__':
     scraper = Course_Scraper()
     scraper.getMajors()
-
-
